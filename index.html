@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>3 Mentors — HSC ব্যাচ (XI & XII) | অফলাইন ভর্তি অফলাইনে, অনলাইনে প্রিভিউ ক্লাস</title>
+  <meta name="description" content="3 Mentors — শুধুমাত্র HSC ব্যাচ: XI ও XII। অফলাইন ক্লাস চলছে; অফলাইন ভর্তি হবে সরাসরি অফলাইনে (অনলাইনে ভর্তি প্রক্রিয়া নেই)। অনলাইনে নিয়মিত ক্লাস থাকবে এবং প্রিভিউ ক্লাস হিসেবে দুটি ইউটিউব রেকর্ডেড ভিডিও দেখুন।" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href='data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"%3E%3Crect x="2" y="2" width="60" height="60" rx="14" fill="%2312161f"/%3E%3Cpath d="M16 42c6-2 10-6 10-12 0-4-2-6-6-6-3 0-5 1-7 3" stroke="%23E62136" stroke-width="6" stroke-linecap="round" fill="none"/%3E%3Cpath d="M30 22h18m-18 10h14m-14 10h18" stroke="%231CB15E" stroke-width="6" stroke-linecap="round" fill="none"/%3E%3C/svg%3E' />
+  <style>
+    :root{
+      --brand:#E62136; /* red */
+      --brand-dark:#121212;
+      --brand-green:#1CB15E;
+      --brand-yellow:#FFD439;
+      --bg:#0F0F10;
+      --text:#F5F7FA;
+      --muted:#C9CFDA;
+      --card:#16181D;
+      --stroke:#262A32;
+      --shadow:0 20px 40px rgba(0,0,0,.35);
+      --radius:14px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family: 'Hind Siliguri', system-ui, -apple-system, Segoe UI, Roboto, 'Inter', Arial, sans-serif;
+      background: linear-gradient(180deg,var(--bg),#0b0c0f 30%, #0a0b0e 60%, #08090c 100%);
+      color: var(--text);
+    }
+
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    button{font:inherit}
+
+    /* Top strip */
+    .topbar{
+      background: linear-gradient(90deg, var(--brand), #ff4d5d);
+      color:#fff; padding:6px 16px; font-size:14px;
+      display:flex; justify-content:center; gap:20px; align-items:center; flex-wrap:wrap
+    }
+    .topbar strong{font-weight:700}
+    .topbar .call{display:flex; gap:10px; align-items:center}
+    .pill{background:rgba(255,255,255,.15); padding:4px 10px; border-radius:20px}
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:40; backdrop-filter:saturate(1.2) blur(10px);
+      background:rgba(10,10,12,.7); border-bottom:1px solid var(--stroke);
+    }
+    .nav{max-width:1180px; margin:0 auto; padding:12px 16px; display:flex; align-items:center; gap:18px}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.3px}
+    .brand svg{width:36px; height:36px}
+    .brand .name{font-family:Inter, system-ui, sans-serif; font-weight:800}
+    .brand .accent{color:var(--brand)}
+    .links{margin-left:auto; display:flex; gap:18px; align-items:center}
+    .links a{color:var(--muted); font-weight:600}
+    .links a:hover{color:#fff}
+    .cta{background:linear-gradient(90deg, var(--brand-green), #22d06f); color:#08110b; padding:10px 16px; border-radius:12px; font-weight:800}
+    .menu-btn{display:none; margin-left:auto; background:transparent; border:1px solid var(--stroke); color:#fff; padding:8px 12px; border-radius:10px}
+
+    @media (max-width: 920px){
+      .links{display:none}
+      .menu-btn{display:block}
+    }
+
+    .mobile-menu{display:none; border-top:1px solid var(--stroke); background:#0d0f13}
+    .mobile-menu.open{display:block}
+    .mobile-menu a{display:block; padding:14px 18px; border-bottom:1px solid var(--stroke); color:var(--muted); font-weight:600}
+    .mobile-menu a:hover{background:#12141a; color:#fff}
+
+    /* Hero */
+    .hero{max-width:1180px; margin:30px auto 0; padding:24px 16px; display:grid; grid-template-columns: 1.1fr .9fr; gap:26px; align-items:center}
+    .hero h1{font-size:48px; line-height:1.08; margin:0 0 14px; font-weight:800}
+    .hero p{font-size:18px; color:var(--muted); margin:0 0 18px}
+    .badges{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+    .badge{background:#10131a; border:1px solid var(--stroke); padding:8px 12px; border-radius:999px; color:#cdd3de; font-weight:600}
+    .hero-card{background: radial-gradient(1000px 400px at -5% -10%, rgba(230,33,54,.25), transparent 50%),
+                          radial-gradient(800px 400px at 120% 120%, rgba(28,177,94,.15), transparent 50%),
+                          #0f1218; border:1px solid var(--stroke); border-radius:20px; padding:18px}
+    .hero-actions{display:flex; gap:12px; flex-wrap:wrap; margin-top:16px}
+    .btn{border:0; padding:12px 18px; border-radius:12px; font-weight:800; cursor:pointer}
+    .btn-primary{background:linear-gradient(90deg,var(--brand),#ff4d5d); color:#fff}
+    .btn-outline{background:transparent; border:1px solid var(--stroke); color:#fff}
+
+    .statbar{display:flex; gap:14px; margin-top:18px; flex-wrap:wrap}
+    .stat{background:#11141a; border:1px solid var(--stroke); padding:12px 14px; border-radius:12px; text-align:center}
+    .stat b{font-size:24px}
+    .mock-banner{aspect-ratio: 16 / 10; border-radius:16px; overflow:hidden; border:1px solid var(--stroke); background:
+      linear-gradient(120deg, #22262e, #14171d 50%, #171a21 100%);
+      box-shadow: var(--shadow);
+      display:grid; place-items:center; color:#cfd6e3; font-weight:700; letter-spacing:.5px
+    }
+
+    /* Section */
+    .section{max-width:1180px; margin:60px auto 0; padding:0 16px}
+    .section h2{font-size:34px; margin:0 0 18px}
+    .sub{color:var(--muted); margin-top:-8px}
+    .grid{display:grid; grid-template-columns: repeat(2, 1fr); gap:16px}
+    .card{background: linear-gradient(180deg,#12151c,#0e1015); border:1px solid var(--stroke); border-radius:16px; overflow:hidden}
+    .card .cover{height:120px; background:linear-gradient(90deg, #262b35, #1b1f27)}
+    .card .content{padding:14px}
+    .tag{display:inline-block; font-size:12px; background:#131823; color:#a9b1bf; border:1px solid var(--stroke); padding:4px 8px; border-radius:999px; margin-bottom:8px}
+    .card h3{margin:4px 0 8px; font-size:18px}
+    .card p{margin:0 0 12px; color:#aeb6c5}
+    .card .btn{width:100%;}
+
+    @media (max-width: 1020px){
+      .hero{grid-template-columns: 1fr;}
+      .grid{grid-template-columns: 1fr}
+    }
+
+    /* Feature list from card */
+    .details{display:grid; grid-template-columns:1.4fr .6fr; gap:16px}
+    .details .list{background:#0f1218; border:1px solid var(--stroke); border-radius:16px; padding:16px}
+    .details ul{margin:10px 0 0; padding-left:18px}
+    .details li{margin:8px 0; color:#c9d1de}
+    .contact{
+      background:linear-gradient(200deg, rgba(28,177,94,.2), rgba(230,33,54,.18));
+      border:1px solid var(--stroke); border-radius:16px; padding:16px
+    }
+    .contact .phone{font-size:26px; font-weight:800}
+    .qr{display:grid; place-items:center; background:#0b0d12; border:1px dashed var(--stroke); padding:16px; border-radius:14px; color:#8e97a7}
+
+    /* Preview */
+    .video-grid{display:grid; grid-template-columns: repeat(2, 1fr); gap:16px}
+    .video{position:relative; padding-top:56.25%; border:1px solid var(--stroke); border-radius:16px; overflow:hidden; background:#0b0d12}
+    .video iframe{position:absolute; inset:0; width:100%; height:100%; border:0}
+    .video-note{color:#aeb6c5; margin-top:8px}
+    @media (max-width: 900px){
+      .video-grid{grid-template-columns:1fr}
+    }
+
+    /* Footer */
+    footer{margin-top:70px; border-top:1px solid var(--stroke); padding:26px 16px; color:#aeb6c5}
+    .foot{max-width:1180px; margin:0 auto; display:grid; grid-template-columns: 1.1fr .9fr; gap:16px}
+    .foot small{color:#8f97a6}
+    .foot .links{display:grid; grid-template-columns: repeat(3,1fr); gap:10px; margin-left:0}
+
+    /* helper */
+    .stripe{height:8px; background:linear-gradient(90deg, var(--brand), var(--brand-yellow), var(--brand-green)); border-radius:999px}
+  </style>
+</head>
+<body>
+  <!-- Topbar -->
+  <div class="topbar">
+    <span class="pill">অফলাইন ক্লাস চলছে</span>
+    <span class="pill">অফলাইন ভর্তি হবে সরাসরি অফলাইনে</span>
+    <span class="pill">৩টি ব্রাঞ্চে ভর্তি চলমান</span>
+    <div class="call">যোগাযোগ: <strong>01614-780582</strong></div>
+  </div>
+
+  <!-- Header / Nav -->
+  <header>
+    <nav class="nav">
+      <a class="brand" href="#">
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="2" y="2" width="60" height="60" rx="14" fill="#12161f" stroke="#2a2f39" stroke-width="2"/>
+          <path d="M16 42c6-2 10-6 10-12 0-4-2-6-6-6-3 0-5 1-7 3" stroke="#E62136" stroke-width="5" stroke-linecap="round"/>
+          <path d="M30 22h18m-18 10h14m-14 10h18" stroke="#1CB15E" stroke-width="5" stroke-linecap="round"/>
+        </svg>
+        <span class="name"><span class="accent">3</span> Mentors</span>
+      </a>
+      <div class="links">
+        <a href="#hsc">HSC ব্যাচ</a>
+        <a href="#preview">প্রিভিউ ক্লাস</a>
+        <a href="#branches">শাখা</a>
+        <a href="#whyus">কেন আমরা</a>
+        <a href="#details">ডিটেলস</a>
+        <a class="cta" href="tel:01614780582">কল করুন</a>
+      </div>
+      <button class="menu-btn" id="menuBtn">মেনু</button>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#hsc">HSC ব্যাচ</a>
+      <a href="#preview">প্রিভিউ ক্লাস</a>
+      <a href="#branches">শাখা</a>
+      <a href="#whyus">কেন আমরা</a>
+      <a href="#details">ডিটেলস</a>
+      <a href="tel:01614780582">কল করুন</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div>
+      <div class="hero-card">
+        <h1>শুধু HSC ব্যাচ — ফার্স্ট ইয়ার (XI) ও সেকেন্ড ইয়ার (XII)</h1>
+        <p>বর্তমানে অফলাইন ক্লাস চলছে; অফলাইন ভর্তি হবে সরাসরি অফলাইনে (অনলাইনে ভর্তি প্রক্রিয়া নেই)। অনলাইনে নিয়মিত ক্লাস থাকবে এবং প্রিভিউ ক্লাস হিসেবে দুটি ইউটিউব রেকর্ডেড ভিডিও দেখুন।</p>
+        <div class="badges">
+          <span class="badge">XI & XII</span>
+          <span class="badge">অফলাইন ক্লাস চলছে</span>
+          <span class="badge">অনলাইনে নিয়মিত ক্লাস</span>
+          <span class="badge">প্রিভিউ ক্লাস উপলব্ধ</span>
+          <span class="badge">১০টি ফ্রি অফলাইন ক্লাস</span>
+        </div>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#preview">প্রিভিউ ক্লাস দেখুন</a>
+          <a class="btn btn-outline" href="tel:01614780582">অফলাইন ভর্তির জন্য কল করুন</a>
+        </div>
+        <div class="statbar">
+          <div class="stat"><b>HSC</b><br/>XI & XII</div>
+          <div class="stat"><b>Live</b><br/>হেল্পডেস্ক</div>
+          <div class="stat"><b>YouTube</b><br/>Preview</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="mock-banner">HSC Batch — Preview & Offline Admission Info</div>
+    </div>
+  </section>
+
+  <!-- HSC Section Only -->
+  <div class="section" id="hsc">
+    <h2>HSC ব্যাচ (XI & XII)</h2>
+    <p class="sub">ফার্স্ট ইয়ার (XI) ও সেকেন্ড ইয়ার (XII) — বিজ্ঞান, ব্যবসায় শিক্ষা ও মানবিক—সব গ্রুপের জন্য।</p>
+    <div class="grid">
+      <div class="card">
+        <div class="cover" style="background:linear-gradient(90deg,#2b2f38,#22262e)"></div>
+        <div class="content">
+          <span class="tag">HSC XI</span>
+          <h3>HSC First Year (XI) ব্যাচ</h3>
+          <p>কনসেপ্ট বিল্ডিং, সিলেবাস কভারেজ, অধ্যায়ভিত্তিক কুইজ, নোট ও ক্লাস রেকর্ডিং।</p>
+          <button class="btn btn-primary" onclick="location.hash='#details'">ডিটেলস দেখুন</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="cover" style="background:linear-gradient(90deg,#2b2f38,#22262e)"></div>
+        <div class="content">
+          <span class="tag">HSC XII</span>
+          <h3>HSC Second Year (XII) ব্যাচ</h3>
+          <p>বোর্ড পরীক্ষামুখী রিভিশন, সমস্যা সমাধান, পূর্ববর্তী বছরের প্রশ্ন অনুশীলন ও পূর্ণাঙ্গ মডেল টেস্ট।</p>
+          <button class="btn btn-primary" onclick="location.hash='#details'">ডিটেলস দেখুন</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Branches Section -->
+  <div class="section" id="branches">
+    <div class="stripe"></div>
+    <h2>নড়াইলের শাখাসমূহ (ভর্তি চলমান)</h2>
+    <p class="sub">একই সাথে তিনটি ব্রাঞ্চে ভর্তি প্রক্রিয়া চলছে — XI ও XII দুই বর্ষের শিক্ষার্থীদের জন্য।</p>
+    <div class="grid">
+      <div class="card">
+        <div class="cover"></div>
+        <div class="content">
+          <span class="tag">ভর্তি চলমান</span>
+          <h3>মহিলা কলেজ ব্রাঞ্চ</h3>
+          <p>HSC XI & XII — অফলাইন ক্লাস + ১০টি ফ্রি ট্রায়াল ক্লাস।</p>
+          <button class="btn btn-outline" onclick="location.href='tel:01614780582'">কল: 01614-780582</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="cover"></div>
+        <div class="content">
+          <span class="tag">ভর্তি চলমান</span>
+          <h3>ভিক্টোরিয়া কলেজ ব্রাঞ্চ</h3>
+          <p>HSC XI & XII — অফলাইন ক্লাস + ১০টি ফ্রি ট্রায়াল ক্লাস।</p>
+          <button class="btn btn-outline" onclick="location.href='tel:01614780582'">কল: 01614-780582</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="cover"></div>
+        <div class="content">
+          <span class="tag">ভর্তি চলমান</span>
+          <h3>আসা মাসপাড়া কলেজ ব্রাঞ্চ</h3>
+          <p>HSC XI & XII — অফলাইন ক্লাস + ১০টি ফ্রি ট্রায়াল ক্লাস।</p>
+          <button class="btn btn-outline" onclick="location.href='tel:01614780582'">কল: 01614-780582</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Preview Classes -->
+  <div class="section" id="preview">
+    <div class="stripe"></div>
+    <h2>প্রিভিউ ক্লাস (YouTube)</h2>
+    <p class="sub">ভর্তি সম্পর্কিত বিস্তারিত তথ্যসহ ক্লাসের মান বোঝার স্যাম্পল ভিডিও আমাদের ইউটিউব চ্যানেলে আছে। নিচে দুটি রেকর্ডেড প্রিভিউ—আপনার নিজস্ব ভিডিও লিংক এখানে বসিয়ে দেবেন।</p>
+    <div class="video-grid">
+      <div>
+        <div class="video">
+          <iframe src="https://www.youtube.com/embed/05EBFrgw4BY" title="HSC ICT: Logic Gate — Preview" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <div class="video-note">HSC ICT: Logic Gate — প্রিভিউ ক্লাস</div>
+      </div>
+      <div>
+        <div class="video">
+          <iframe src="https://www.youtube.com/embed/TFIyi9WXQKo" title="HSC ICT: সংখ্যা পদ্ধতি (Part-1) — Preview" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <div class="video-note">HSC ICT: সংখ্যা পদ্ধতি (Part-1) — প্রিভিউ ক্লাস</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="whyus">
+    <div class="stripe"></div>
+    <h2>কেন 3 Mentors?</h2>
+    <div class="grid" style="grid-template-columns: repeat(3, 1fr)">
+      <div class="card" style="padding:16px">
+        <div class="content">
+          <h3>স্ট্রাকচার্ড কারিকুলাম</h3>
+          <p>XI & XII—দুই ব্যাচেই সাপ্তাহিক প্ল্যান, রিভিশন ও টার্গেটেড প্র্যাকটিস।</p>
+        </div>
+      </div>
+      <div class="card" style="padding:16px">
+        <div class="content">
+          <h3>লাইভ হেল্পডেস্ক</h3>
+          <p>ডাউট, নোট বা এক্সট্রা সাপোর্ট— ইনবক্সে মেন্টরদের সাথে সরাসরি কথা।</p>
+        </div>
+      </div>
+      <div class="card" style="padding:16px">
+        <div class="content">
+          <h3>প্রোগ্রেস ট্র্যাকিং</h3>
+          <p>কুইজ ও মডেল টেস্টে র‍্যাঙ্কিং সহ বিস্তারিত রিপোর্ট — উন্নতি চোখে পড়বে।</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="details">
+    <h2>HSC ব্যাচের বিস্তারিত</h2>
+    <p class="sub">অফলাইন ভর্তি নীতিমালা ও অনলাইন ক্লাস/প্রিভিউ সম্পর্কে গুরুত্বপূর্ণ তথ্য।</p>
+    <div class="details">
+      <div class="list">
+        <h3>কোর্স ফিচারস</h3>
+        <ul id="cardDetails">
+          <li>সপ্তাহে একাধিক লাইভ ক্লাস + রেকর্ডেড ক্লাস অ্যাক্সেস (অনলাইন)</li>
+          <li>অধ্যায়ভিত্তিক নোট, এক্সাম ফোকাস শর্ট নোট ও ক্লাস রেকর্ডিং।</p>
+          <li>সায়েন্স/বিজনেস/হিউম্যানিটিজ—বাংলা, ইংরেজি, আইসিটি ও গ্রুপ সাবজেক্ট</li>
+          <li>পার্সোনাল মেন্টরিং ও প্রশ্ন সমাধান হেল্পডেস্ক</li>
+          <li><b>নতুনদের ১০টি ফ্রি অফলাইন ক্লাস (ট্রায়াল)</b>—ভালো লাগলে ভর্তি</li>
+        </ul>
+      </div>
+      <div class="contact" id="admission">
+        <h3>অফলাইন ভর্তি নির্দেশনা</h3>
+        <ul>
+          <li>অফলাইন ক্লাস বর্তমানে চলমান।</li>
+          <li><b>ভর্তি শুধুমাত্র অফলাইন পদ্ধতিতেই</b> সম্পন্ন হবে — ওয়েবসাইটে কোনো অনলাইন ভর্তি/পেমেন্ট নেই।</li>
+          <li>একই সাথে <b>তিনটি ব্রাঞ্চে</b> ভর্তি প্রক্রিয়া চলছে: মহিলা কলেজ ব্রাঞ্চ, ভিক্টোরিয়া কলেজ ব্রাঞ্চ, আসা মাসপাড়া কলেজ ব্রাঞ্চ।</li>
+          <li>ফার্স্ট (XI) ও সেকেন্ড (XII) — দুই বর্ষের শিক্ষার্থীদের জন্য ভর্তি সুযোগ রয়েছে।</li>
+          <li>ভর্তি/ট্রায়াল ক্লাস সম্পর্কে জানতে কল করুন:</li>
+        </ul>
+        <div class="phone">01614-780582</div>
+        <div class="badges" style="margin:12px 0">
+          <span class="badge">WhatsApp/Imo/Call</span>
+          <span class="badge">সময়: 10AM–10PM</span>
+        </div>
+        <div class="qr">যদি লোকেশন/QR/লোগো দেখাতে চান, এখানে ইমেজ বসাবো</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="foot">
+      <div>
+        <div class="brand" style="margin-bottom:8px">
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="2" y="2" width="60" height="60" rx="14" fill="#12161f" stroke="#2a2f39" stroke-width="2"/>
+            <path d="M16 42c6-2 10-6 10-12 0-4-2-6-6-6-3 0-5 1-7 3" stroke="#E62136" stroke-width="5" stroke-linecap="round"/>
+            <path d="M30 22h18m-18 10h14m-14 10h18" stroke="#1CB15E" stroke-width="5" stroke-linecap="round"/>
+          </svg>
+          <span class="name"><span class="accent">3</span> Mentors</span>
+        </div>
+        <small>© <span id="year"></span> 3 Mentors. সর্বস্বত্ব সংরক্ষিত।</small>
+      </div>
+      <div class="links">
+        <a href="#hsc">HSC ব্যাচ</a>
+        <a href="#preview">প্রিভিউ ক্লাস</a>
+        <a href="#branches">শাখা</a>
+        <a href="#whyus">কেন আমরা</a>
+        <a href="#details">ডিটেলস</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn?.addEventListener('click', ()=>{
+      mobileMenu.classList.toggle('open');
+    })
+
+    // Current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Smooth scroll for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const id = a.getAttribute('href');
+        if(!id || id === 'tel:01614780582') return;
+        const el = document.querySelector(id);
+        if(el){
+          e.preventDefault();
+          window.scrollTo({top: el.getBoundingClientRect().top + window.pageYOffset - 70, behavior:'smooth'});
+          mobileMenu.classList.remove('open');
+        }
+      })
+    })
+  </script>
+</body>
+</html>
