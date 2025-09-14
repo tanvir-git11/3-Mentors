@@ -77,7 +77,9 @@
     .hero h1{font-size:48px; line-height:1.08; margin:0 0 14px; font-weight:800}
     .hero p{font-size:18px; color:var(--muted); margin:0 0 18px}
     .badges{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
-    .badge{background:#10131a; border:1px solid var(--stroke); padding:8px 12px; border-radius:999px; color:#cdd3de; font-weight:600}
+    .badge{background:#10131a; border:1px solid var(--stroke); padding:8px 12px; border-radius:999px; color:#cdd3de; font-weight:600; transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease}
+    .badge.open-courses{ cursor:pointer }
+    .badge.open-courses:hover, .badge.open-courses:focus{ transform: translateY(-2px) scale(1.03); box-shadow:0 8px 18px rgba(99,91,255,.18); background:#12162a }
     .hero-card{background: radial-gradient(1000px 400px at -5% -10%, rgba(230,33,54,.25), transparent 50%),
                           radial-gradient(800px 400px at 120% 120%, rgba(28,177,94,.15), transparent 50%),
                           #0f1218; border:1px solid var(--stroke); border-radius:20px; padding:18px}
@@ -108,6 +110,22 @@
     .card p{margin:0 0 12px; color:#aeb6c5}
     .card .btn{width:100%;}
 
+    /* Course chips */
+    .chips{display:flex; gap:10px; flex-wrap:wrap}
+    .btn-chip{border-radius:999px; padding:10px 14px}
+
+    /* Modal */
+    .modal{position:fixed; inset:0; background:rgba(0,0,0,.55); display:none; place-items:center; padding:16px; z-index:100}
+    .modal.open{display:grid}
+    .modal-card{background:#0f1218; border:1px solid var(--stroke); border-radius:16px; width:min(640px, 100%); padding:16px; box-shadow: var(--shadow)}
+    .modal-header{display:flex; justify-content:space-between; align-items:center; margin-bottom:10px}
+    .modal-close{background:transparent; border:1px solid var(--stroke); color:#fff; padding:8px 10px; border-radius:10px}
+
+    /* Arrival highlight for target section */
+    @keyframes glowIn{ 0%{ box-shadow:0 0 0 rgba(99,91,255,0)} 40%{ box-shadow:0 0 0 6px rgba(99,91,255,.18)} 100%{ box-shadow:0 0 0 rgba(99,91,255,0)} }
+    .target-highlight{ animation: glowIn 1200ms ease-out 1; scroll-margin-top: 80px; border-radius: 12px }
+
+ 
     @media (max-width: 1020px){
       .hero{grid-template-columns: 1fr;}
       .grid{grid-template-columns: 1fr}
@@ -142,6 +160,63 @@
 
     /* helper */
     .stripe{height:8px; background:linear-gradient(90deg, var(--brand), var(--brand-yellow), var(--brand-green)); border-radius:999px}
+
+    /* Mobile polish */
+    @media (max-width: 700px){
+      .section{margin-top:48px}
+      .foot{grid-template-columns:1fr}
+      .foot .links{grid-template-columns: repeat(2,1fr)}
+      .details{grid-template-columns:1fr}
+    }
+
+    @media (max-width: 600px){
+      /* Topbar */
+      .topbar{gap:10px; padding:8px 12px; font-size:13px}
+      .pill{padding:4px 8px}
+
+      /* Header/Nav */
+      .nav{padding:10px 12px}
+      .brand .name{font-size:18px}
+      .menu-btn{padding:10px 12px; font-weight:700}
+      .mobile-menu a{font-size:16px}
+
+      /* Hero */
+      .hero{margin:14px auto 0; padding:16px}
+      .hero h1{font-size:28px; line-height:1.18}
+      .hero p{font-size:16px}
+      .hero-actions .btn{width:100%}
+      .statbar{gap:10px}
+      .stat b{font-size:18px}
+
+      /* Sections */
+      .section{margin-top:40px; padding:0 14px}
+      .section h2{font-size:26px}
+
+      /* Cards & grids */
+      .grid{grid-template-columns:1fr}
+      .card .cover{height:90px}
+      .card h3{font-size:16px}
+      .btn{padding:12px 14px}
+
+      /* Details stacks */
+      .details .list, .contact{padding:14px}
+
+      /* Video */
+      .video-note{font-size:13px}
+    }
+
+    @media (max-width: 400px){
+      .hero h1{font-size:24px}
+      .section h2{font-size:22px}
+      .mobile-menu a{padding:12px 16px}
+      .btn{padding:11px 12px}
+    }
+
+    /* Fix: Why Us grid stacks on mobile (override inline style) */
+    @media (max-width: 900px){
+      #whyus .grid{grid-template-columns:1fr !important}
+      #whyus .card{margin-bottom:10px}
+    }
   </style>
 </head>
 <body>
@@ -188,31 +263,54 @@
   <section class="hero">
     <div>
       <div class="hero-card">
-        <h1>শুধু HSC ব্যাচ — ফার্স্ট ইয়ার (XI) ও সেকেন্ড ইয়ার (XII)</h1>
-        <p>বর্তমানে অফলাইন ক্লাস চলছে; অফলাইন ভর্তি হবে সরাসরি অফলাইনে (অনলাইনে ভর্তি প্রক্রিয়া নেই)। অনলাইনে নিয়মিত ক্লাস থাকবে এবং প্রিভিউ ক্লাস হিসেবে দুটি ইউটিউব রেকর্ডেড ভিডিও দেখুন।</p>
+        <h1>এক প্ল্যাটফর্সে সব প্রস্তুতি — HSC, চাকরি/সরকারি চাকরি, বিশ্ববিদ্যালয় ভর্তি, ক্লাস ৫–১০ ও SSC</h1>
+        <p>অফলাইন ক্লাস চালু — ভর্তি অফলাইনে। সাথে অনলাইনে নিয়মিত ক্লাস ও প্রিভিউ ভিডিও। আপনার প্রয়োজন অনুযায়ী কোর্স বাছাই করুন।</p>
         <div class="badges">
-          <span class="badge">XI & XII</span>
-          <span class="badge">অফলাইন ক্লাস চলছে</span>
-          <span class="badge">অনলাইনে নিয়মিত ক্লাস</span>
-          <span class="badge">প্রিভিউ ক্লাস উপলব্ধ</span>
-          <span class="badge">১০টি ফ্রি অফলাইন ক্লাস</span>
+          <span class="badge open-courses" role="button" tabindex="0" data-target="#details-hsc">HSC XI–XII</span>
+          <span class="badge open-courses" role="button" tabindex="0" data-target="#details-job">চাকরি প্রস্তুতি</span>
+          <span class="badge open-courses" role="button" tabindex="0" data-target="#details-govt">সরকারি চাকরি</span>
+          <span class="badge open-courses" role="button" tabindex="0" data-target="#details-university">বিশ্ববিদ্যালয় ভর্তি</span>
+          <span class="badge open-courses" role="button" tabindex="0" data-target="#details-ssc">ক্লাস ৫–১০ & SSC</span>
         </div>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#preview">প্রিভিউ ক্লাস দেখুন</a>
-          <a class="btn btn-outline" href="tel:01614780582">অফলাইন ভর্তির জন্য কল করুন</a>
+          <a class="btn btn-primary open-courses" href="#courses">কোর্স তালিকা দেখুন</a>
+          <a class="btn btn-outline" href="tel:01614780582">ভর্তি/জিজ্ঞাসায় কল করুন</a>
         </div>
         <div class="statbar">
-          <div class="stat"><b>HSC</b><br/>XI & XII</div>
+          <div class="stat"><b>৫+</b><br/>কোর্স ক্যাটাগরি</div>
           <div class="stat"><b>Live</b><br/>হেল্পডেস্ক</div>
-          <div class="stat"><b>YouTube</b><br/>Preview</div>
+          <div class="stat"><b>Preview</b><br/>YouTube</div>
         </div>
       </div>
     </div>
     <div>
-      <div class="mock-banner">HSC Batch — Preview & Offline Admission Info</div>
+      <div class="mock-banner">All Courses — Offline Admission & Online Preview</div>
     </div>
   </section>
 
+  <!-- Courses quick links -->
+  <div class="section" id="courses">
+    <h2>উপলব্ধ কোর্সসমূহ</h2>
+    <p class="sub">সব ধরনের শিক্ষার্থীদের জন্য</p>
+  </div>
+
+  <!-- Modal: Course list -->
+  <div class="modal" id="courseModal" role="dialog" aria-modal="true" aria-labelledby="courseModalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="courseModalTitle">উপলব্ধ কোর্সসমূহ</h3>
+        <button class="modal-close" id="courseClose">বন্ধ</button>
+      </div>
+      <div class="chips">
+        <a class="btn btn-outline btn-chip" href="#details-hsc">HSC প্রস্তুতি</a>
+        <a class="btn btn-outline btn-chip" href="#details-job">চাকরি প্রস্তুতি</a>
+        <a class="btn btn-outline btn-chip" href="#details-govt">সরকারি চাকরি প্রস্তুতি</a>
+        <a class="btn btn-outline btn-chip" href="#details-university">বিশ্ববিদ্যালয় ভর্তি</a>
+        <a class="btn btn-outline btn-chip" href="#details-ssc">ক্লাস ৫–১০ ও SSC</a>
+      </div>
+    </div>
+  </div>
+ 
   <!-- HSC Section Only -->
   <div class="section" id="hsc">
     <h2>HSC ব্যাচ (XI & XII)</h2>
@@ -322,7 +420,7 @@
   </div>
 
   <div class="section" id="details">
-    <h2>HSC ব্যাচের বিস্তারিত</h2>
+    <h2 id="details-hsc">HSC ব্যাচের বিস্তারিত</h2>
     <p class="sub">অফলাইন ভর্তি নীতিমালা ও অনলাইন ক্লাস/প্রিভিউ সম্পর্কে গুরুত্বপূর্ণ তথ্য।</p>
     <div class="details">
       <div class="list">
@@ -350,6 +448,51 @@
           <span class="badge">সময়: 10AM–10PM</span>
         </div>
         <div class="qr">যদি লোকেশন/QR/লোগো দেখাতে চান, এখানে ইমেজ বসাবো</div>
+      </div>
+    </div>
+
+    <!-- Other course details -->
+    <div class="details" id="details-job" style="margin-top:16px">
+      <div class="list">
+        <h3>চাকরি প্রস্তুতি</h3>
+        <ul>
+          <li>বাংলা, ইংরেজি, গণিত, আইসিটিসহ প্রয়োজনীয় টপিক কভারেজ</li>
+            <li>প্রশ্নব্যাংক ভিত্তিক অনুশীলন ও মডেল টেস্ট</li>
+          <li>স্টাডি প্ল্যান, টাইম ম্যানেজমেন্ট ও মেন্টরিং সাপোর্ট</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="details" id="details-govt" style="margin-top:16px">
+      <div class="list">
+        <h3>সরকারি চাকরি প্রস্তুতি</h3>
+        <ul>
+          <li>BCS/ব্যাংক/অন্যান্য সরকারি নিয়োগ পরীক্ষা ফোকাসড কারিকুলাম</li>
+          <li>পূর্ববর্তী বছরের প্রশ্ন বিশ্লেষণ, টপিক-ভিত্তিক কুইজ</li>
+          <li>পূর্ণাঙ্গ মডেল টেস্ট ও পারফরম্যান্স ট্র্যাকিং</li>
+            </ul>
+      </div>
+    </div>
+
+    <div class="details" id="details-university" style="margin-top:16px">
+      <div class="list">
+        <h3>বিশ্ববিদ্যালয় ভর্তি প্রস্তুতি</h3>
+        <ul>
+          <li>ইউনিটভিত্তিক (A/B/C ইত্যাদি) সিলেবাস কভারেজ</li>
+          <li>কনসেপ্ট বিল্ডিং ক্লাস, শর্ট-নোট ও টার্গেটেড প্রবলেম প্র্যাকটিস</li>
+          <li>সপ্তাহিক মডেল টেস্ট ও এক্সাম টেকনিক</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="details" id="details-ssc" style="margin-top:16px">
+      <div class="list">
+        <h3>ক্লাস ৫–১০ ও SSC ব্যাচ</h3>
+        <ul>
+          <li>বিষয়ভিত্তিক (বাংলা, ইংরেজি, গণিত, বিজ্ঞান, আইসিটি ইত্যাদি) নিয়মিত ক্লাস</li>
+          <li>অধ্যায়ভিত্তিক অ্যাসেসমেন্ট, নোট ও রিভিশন প্ল্যান</li>
+          <li>SSC লক্ষ্যে পূর্ণাঙ্গ প্রস্তুতি ও মডেল টেস্ট</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -385,10 +528,95 @@
       mobileMenu.classList.toggle('open');
     })
 
-    // Current year
-    document.getElementById('year').textContent = new Date().getFullYear();
+    // Courses modal
+    const openCourses = document.getElementById('openCourses');
+    const courseModal = document.getElementById('courseModal');
+    const courseClose = document.getElementById('courseClose');
+    const coursePreview = document.getElementById('coursePreview');
 
-    // Smooth scroll for internal links
+    // Smooth scroll with easing and arrival highlight
+    function smoothScrollTo(el, duration = 900, offset = 70) {
+      if (!el) return;
+      const startY = window.pageYOffset;
+      const targetY = el.getBoundingClientRect().top + startY - offset;
+      const startTime = performance.now();
+      const easeInOutCubic = t => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      function step(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = easeInOutCubic(progress);
+        window.scrollTo(0, startY + (targetY - startY) * eased);
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          try {
+            el.classList.add('target-highlight');
+            setTimeout(() => el.classList.remove('target-highlight'), 1400);
+          } catch (_) {}
+        }
+      }
+      requestAnimationFrame(step);
+    }
+
+    function openCoursesModal(targetId){
+      courseModal.classList.add('open');
+      if(targetId){
+        // Load preview of the corresponding details content
+        const src = document.querySelector(targetId);
+        if(src){
+          const clone = src.cloneNode(true);
+          // Simplify: keep heading and first list/paragraph
+          const h = clone.querySelector('h2, h3, h4');
+          const firstPara = clone.querySelector('p, ul, ol');
+          coursePreview.innerHTML = '';
+          const title = document.createElement('h4');
+          title.textContent = h ? h.textContent : 'কোর্স ডিটেইলস';
+          const box = document.createElement('div');
+          box.className = 'preview';
+          box.innerHTML = firstPara ? firstPara.outerHTML : 'তথ্য শীঘ্রই যুক্ত হবে।';
+          const link = document.createElement('a');
+          link.className = 'btn btn-primary';
+          link.href = targetId;
+          link.textContent = 'Details এ যান';
+          link.addEventListener('click', ()=> courseModal.classList.remove('open'));
+          coursePreview.appendChild(title);
+          coursePreview.appendChild(box);
+          coursePreview.appendChild(link);
+        }
+      }
+    }
+
+    document.querySelectorAll('.open-courses').forEach(el=>{
+      el.addEventListener('click', (e)=>{
+        const isAnchor = el.tagName.toLowerCase() === 'a' && (el.getAttribute('href') || '').startsWith('#');
+        if (isAnchor) {
+          // Let the global smooth-scroll handler for anchors run
+          return;
+        }
+        const targetId = el.getAttribute('data-target');
+        if (targetId) {
+          const targetEl = document.querySelector(targetId);
+          if (targetEl) {
+            e.preventDefault();
+            smoothScrollTo(targetEl, 900, 70);
+            mobileMenu.classList.remove('open');
+          }
+        }
+      })
+    })
+    courseClose?.addEventListener('click', ()=> courseModal.classList.remove('open'));
+    courseModal?.addEventListener('click', (e)=>{ if(e.target === courseModal) courseModal.classList.remove('open') });
+
+    // In-modal chip clicks: update preview but do not close modal immediately; provide a CTA to go to details
+    document.getElementById('courseChips')?.querySelectorAll('a').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        e.preventDefault();
+        const target = a.getAttribute('data-target') || a.getAttribute('href');
+        openCoursesModal(target);
+      })
+    })
+
+    // Smooth scroll for internal links (kept as is below)
     document.querySelectorAll('a[href^="#"]').forEach(a=>{
       a.addEventListener('click', e=>{
         const id = a.getAttribute('href');
@@ -396,7 +624,7 @@
         const el = document.querySelector(id);
         if(el){
           e.preventDefault();
-          window.scrollTo({top: el.getBoundingClientRect().top + window.pageYOffset - 70, behavior:'smooth'});
+          smoothScrollTo(el, 900, 70);
           mobileMenu.classList.remove('open');
         }
       })
