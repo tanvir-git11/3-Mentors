@@ -32,7 +32,13 @@
       color: var(--text);
     }
 
-    a{color:inherit;text-decoration:none}
+    a{color:inherit;text-decoration:none; transition: color .2s ease, text-decoration-color .2s ease, text-underline-offset .2s ease}
+/* Global anchor hover/focus styles */
+a:hover, a:focus{ text-decoration: underline; text-decoration-color: rgba(230,33,54,.6); text-decoration-thickness: 1px; text-underline-offset: 2px }
+a:focus-visible{ outline: 1.5px solid rgba(230,33,54,.55); outline-offset: 2px; border-radius: 6px }
+a:active{ opacity: .94 }
+/* Prevent double underline on special links (nav, mobile drawer, buttons) */
+.links a:hover, .links a:focus, .mobile-menu a:hover, .mobile-menu a:focus, a.btn, a.btn-outline, .cta{ text-decoration: none !important }
     img{max-width:100%;display:block}
     button{font:inherit}
 
@@ -48,29 +54,51 @@
 
     /* Header */
     header{
-      position:sticky; top:0; z-index:40; backdrop-filter:saturate(1.2) blur(10px);
-      background:rgba(10,10,12,.7); border-bottom:1px solid var(--stroke);
+      position:sticky; top:0; z-index:40; background:rgba(13,15,19,.6); backdrop-filter:saturate(180%) blur(10px); border-bottom:1px solid var(--stroke);
     }
-    .nav{max-width:1180px; margin:0 auto; padding:12px 16px; display:flex; align-items:center; gap:18px}
-    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.3px}
-    .brand svg{width:36px; height:36px}
-    .brand .name{font-family:Inter, system-ui, sans-serif; font-weight:800}
+    header.scrolled{ background:rgba(13,15,19,.85); border-bottom-color:#1d2230; box-shadow:0 8px 24px rgba(0,0,0,.35); backdrop-filter:saturate(200%) blur(12px) }
+    .nav{max-width:1180px; margin:0 auto; padding:12px 16px; display:flex; align-items:center; gap:18px; justify-content:space-between}
+    .brand{display:flex; align-items:center; gap:10px; color:#e5e7eb; font-weight:800; text-decoration:none}
+    .brand svg, .brand img{width:36px; height:36px}
+    .brand .name{font-family:Inter, system-ui, sans-serif; font-weight:800; font-size:20px}
     .brand .accent{color:var(--brand)}
     .links{margin-left:auto; display:flex; gap:18px; align-items:center}
-    .links a{color:var(--muted); font-weight:600}
+    .links a{color:var(--muted); font-weight:600; position:relative}
     .links a:hover{color:#fff}
-    .cta{background:linear-gradient(90deg, var(--brand-green), #22d06f); color:#08110b; padding:10px 16px; border-radius:12px; font-weight:800}
+    .links a::after{content:""; position:absolute; left:0; bottom:-6px; height:1.5px; width:100%; background:linear-gradient(90deg, rgba(230,33,54,.6), rgba(255,77,93,.6)); transform:scaleX(0); transform-origin:left; transition:transform .22s ease}
+    .links a:hover::after, .links a:focus-visible::after{transform:scaleX(1)}
+    .links a.active{color:#fff}
+    .links a.active::after{transform:scaleX(1)}
+    .cta{background:linear-gradient(90deg, var(--brand-green), #22d06f); color:#08110b; padding:10px 16px; border-radius:12px; font-weight:800; box-shadow:0 8px 18px rgba(28,177,94,.18); transition:transform .2s ease, box-shadow .2s ease}
+    .cta:hover{transform:translateY(-2px); box-shadow:0 12px 26px rgba(28,177,94,.26)}
     .menu-btn{display:none; margin-left:auto; background:transparent; border:1px solid var(--stroke); color:#fff; padding:8px 12px; border-radius:10px}
+    .menu-btn .burger{display:inline-block; width:18px; height:2px; background:#cbd5e1; border-radius:2px; position:relative; margin-right:8px; vertical-align:middle; transition:transform .25s ease, background-color .25s ease}
+    .menu-btn .burger::before,.menu-btn .burger::after{content:""; position:absolute; left:0; width:18px; height:2px; background:#cbd5e1; border-radius:2px; transition:transform .25s ease}
+    .menu-btn .burger::before{top:-6px}
+    .menu-btn .burger::after{top:6px}
+    .menu-btn[aria-expanded="true"] .burger{background:transparent}
+    .menu-btn[aria-expanded="true"] .burger::before{transform:translateY(6px) rotate(45deg)}
+    .menu-btn[aria-expanded="true"] .burger::after{transform:translateY(-6px) rotate(-45deg)}
 
     @media (max-width: 920px){
       .links{display:none}
       .menu-btn{display:block}
     }
 
-    .mobile-menu{display:none; border-top:1px solid var(--stroke); background:#0d0f13}
-    .mobile-menu.open{display:block}
-    .mobile-menu a{display:block; padding:14px 18px; border-bottom:1px solid var(--stroke); color:var(--muted); font-weight:600}
+    /* Mobile menu drawer */
+    .mobile-menu{position:fixed; top:0; right:0; height:100vh; width:min(320px,86vw); background:#0d0f13; border-left:1px solid var(--stroke); box-shadow:0 10px 30px rgba(0,0,0,.35); transform:translateX(100%); transition:transform .28s ease; padding:12px 0; z-index:45; overflow:auto; display:block}
+    .mobile-head{display:flex; align-items:center; justify-content:space-between; padding:10px 14px; border-bottom:1px solid var(--stroke); color:#cfd6e3; font-weight:700}
+    .menu-close{background:transparent; border:1px solid var(--stroke); color:#fff; padding:8px 10px; border-radius:10px}
+    .mobile-menu.open{transform:translateX(0)}
+    .mobile-menu a{display:block; padding:14px 18px; border-bottom:1px solid var(--stroke); color:#cfd6e3; font-weight:600}
     .mobile-menu a:hover{background:#12141a; color:#fff}
+
+    /* Overlay */
+    .menu-overlay{position:fixed; inset:0; background:rgba(0,0,0,.4); opacity:0; pointer-events:none; transition:opacity .25s ease; z-index:44}
+    .menu-overlay.open{opacity:1; pointer-events:auto}
+
+    /* Prevent background scroll when menu open */
+    body.no-scroll{overflow:hidden}
 
     /* Hero */
     .hero{max-width:1180px; margin:30px auto 0; padding:24px 16px; display:grid; grid-template-columns: 1.1fr .9fr; gap:26px; align-items:center}
@@ -78,8 +106,13 @@
     .hero p{font-size:18px; color:var(--muted); margin:0 0 18px}
     .badges{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
     .badge{background:#10131a; border:1px solid var(--stroke); padding:8px 12px; border-radius:999px; color:#cdd3de; font-weight:600; transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease}
-    .badge.open-courses{ cursor:pointer }
+    .badge.open-courses{ cursor:pointer; display:inline-flex; align-items:center; gap:6px; box-shadow:0 2px 8px rgba(99,91,255,.12); background:linear-gradient(180deg,#10131a,#0d1118); -webkit-tap-highlight-color:rgba(99,91,255,.2) }
     .badge.open-courses:hover, .badge.open-courses:focus{ transform: translateY(-2px) scale(1.03); box-shadow:0 8px 18px rgba(99,91,255,.18); background:#12162a }
+    .badge.open-courses::after{ content:'›'; font-weight:700; color:#9aa3b2; transition:transform .2s ease, color .2s ease }
+    .badge.open-courses:active{ transform:translateY(1px) scale(.98); box-shadow:0 1px 4px rgba(0,0,0,.2) }
+    .badge.open-courses:focus-visible{ outline:2px solid #635bff; outline-offset:2px }
+    .badge.open-courses:hover::after, .badge.open-courses:focus::after{ color:#fff; transform:translateX(2px) }
+    @media (max-width: 700px){ .badges{gap:10px} .badge.open-courses{ padding:10px 14px; font-size:15px } }
     .hero-card{background: radial-gradient(1000px 400px at -5% -10%, rgba(230,33,54,.25), transparent 50%),
                           radial-gradient(800px 400px at 120% 120%, rgba(28,177,94,.15), transparent 50%),
                           #0f1218; border:1px solid var(--stroke); border-radius:20px; padding:18px}
@@ -91,11 +124,12 @@
     .statbar{display:flex; gap:14px; margin-top:18px; flex-wrap:wrap}
     .stat{background:#11141a; border:1px solid var(--stroke); padding:12px 14px; border-radius:12px; text-align:center}
     .stat b{font-size:24px}
-    .mock-banner{aspect-ratio: 16 / 10; border-radius:16px; overflow:hidden; border:1px solid var(--stroke); background:
+    .mock-banner{border-radius:16px; overflow:hidden; border:1px solid var(--stroke); background:
       linear-gradient(120deg, #22262e, #14171d 50%, #171a21 100%);
       box-shadow: var(--shadow);
-      display:grid; place-items:center; color:#cfd6e3; font-weight:700; letter-spacing:.5px
+      display:grid; place-items:center;
     }
+    .mock-banner img{ width:94%; height:auto; max-width:100%; max-height:100%; object-fit:contain; transform:scale(1.06); transform-origin:center; display:block }
 
     /* Section */
     .section{max-width:1180px; margin:60px auto 0; padding:0 16px}
@@ -231,12 +265,8 @@
   <!-- Header / Nav -->
   <header>
     <nav class="nav">
-      <a class="brand" href="#">
-        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect x="2" y="2" width="60" height="60" rx="14" fill="#12161f" stroke="#2a2f39" stroke-width="2"/>
-          <path d="M16 42c6-2 10-6 10-12 0-4-2-6-6-6-3 0-5 1-7 3" stroke="#E62136" stroke-width="5" stroke-linecap="round"/>
-          <path d="M30 22h18m-18 10h14m-14 10h18" stroke="#1CB15E" stroke-width="5" stroke-linecap="round"/>
-        </svg>
+        <a class="brand" href="#">
+        <img src="/img/logo.svg" alt="3 Mentors logo" />
         <span class="name"><span class="accent">3</span> Mentors</span>
       </a>
       <div class="links">
@@ -247,9 +277,13 @@
         <a href="#details">ডিটেলস</a>
         <a class="cta" href="tel:01614780582">কল করুন</a>
       </div>
-      <button class="menu-btn" id="menuBtn">মেনু</button>
+      <button class="menu-btn" id="menuBtn" aria-label="মেনু" aria-controls="mobileMenu" aria-expanded="false"><span class="burger" aria-hidden="true"></span>মেনু</button>
     </nav>
     <div class="mobile-menu" id="mobileMenu">
+      <div class="mobile-head">
+        <span>মেনু</span>
+        <button class="menu-close" id="menuClose" aria-label="বন্ধ">✕</button>
+      </div>
       <a href="#hsc">HSC ব্যাচ</a>
       <a href="#preview">প্রিভিউ ক্লাস</a>
       <a href="#branches">শাখা</a>
@@ -257,6 +291,7 @@
       <a href="#details">ডিটেলস</a>
       <a href="tel:01614780582">কল করুন</a>
     </div>
+    <div class="menu-overlay" id="menuOverlay"></div>
   </header>
 
   <!-- Hero -->
@@ -284,7 +319,7 @@
       </div>
     </div>
     <div>
-      <div class="mock-banner">All Courses — Offline Admission & Online Preview</div>
+      <div class="mock-banner"><img src="/img/benner1.jpg" alt="3 Mentors banner" loading="lazy" decoding="async"></div>
     </div>
   </section>
 
@@ -524,9 +559,39 @@
     // Mobile menu toggle
     const menuBtn = document.getElementById('menuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
+    const menuOverlay = document.getElementById('menuOverlay');
+    const menuClose = document.getElementById('menuClose');
+    function setMenu(open){
+      mobileMenu?.classList.toggle('open', open);
+      menuOverlay?.classList.toggle('open', open);
+      document.body.classList.toggle('no-scroll', open);
+      menuBtn?.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
     menuBtn?.addEventListener('click', ()=>{
-      mobileMenu.classList.toggle('open');
+      const next = !mobileMenu.classList.contains('open');
+      setMenu(next);
     })
+    menuOverlay?.addEventListener('click', ()=> setMenu(false));
+    menuClose?.addEventListener('click', ()=> setMenu(false));
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') setMenu(false) });
+
+    // Header scroll state + active link highlight
+    const headerEl = document.querySelector('header');
+    const navLinks = document.querySelectorAll('.nav .links a[href^="#"]');
+    function updateHeaderState(){
+      if(window.pageYOffset > 10){ headerEl?.classList.add('scrolled') } else { headerEl?.classList.remove('scrolled') }
+      let currentId = null;
+      navLinks.forEach(a=>{
+        const id = a.getAttribute('href');
+        const sec = id ? document.querySelector(id) : null;
+        if(!sec) return;
+        const top = sec.getBoundingClientRect().top + window.pageYOffset - 100;
+        if(window.pageYOffset >= top){ currentId = id }
+      });
+      navLinks.forEach(a=>{ a.classList.toggle('active', a.getAttribute('href') === currentId) })
+    }
+    window.addEventListener('scroll', updateHeaderState, {passive:true});
+    window.addEventListener('load', updateHeaderState);
 
     // Courses modal
     const openCourses = document.getElementById('openCourses');
@@ -599,11 +664,21 @@
           if (targetEl) {
             e.preventDefault();
             smoothScrollTo(targetEl, 900, 70);
-            mobileMenu.classList.remove('open');
+            setMenu(false);
           }
         }
       })
     })
+    // Keyboard support for non-anchor buttons (Enter/Space)
+    document.querySelectorAll('.open-courses[role="button"]').forEach(el=>{
+      el.addEventListener('keydown',(e)=>{
+        if(e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          el.click();
+        }
+      })
+    })
+
     courseClose?.addEventListener('click', ()=> courseModal.classList.remove('open'));
     courseModal?.addEventListener('click', (e)=>{ if(e.target === courseModal) courseModal.classList.remove('open') });
 
@@ -625,10 +700,9 @@
         if(el){
           e.preventDefault();
           smoothScrollTo(el, 900, 70);
-          mobileMenu.classList.remove('open');
+          setMenu(false);
         }
-      })
-    })
+      })    })
   </script>
 </body>
 </html>
