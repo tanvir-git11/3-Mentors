@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/svg+xml" href='data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"%3E%3Crect x="2" y="2" width="60" height="60" rx="14" fill="%2312161f"/%3E%3Cpath d="M16 42c6-2 10-6 10-12 0-4-2-6-6-6-3 0-5 1-7 3" stroke="%23E62136" stroke-width="6" stroke-linecap="round" fill="none"/%3E%3Cpath d="M30 22h18m-18 10h14m-14 10h18" stroke="%231CB15E" stroke-width="6" stroke-linecap="round" fill="none"/%3E%3C/svg%3E' />
+  <link rel="stylesheet" href="/tailwind-style.css" />
   <style>
     :root{
       --brand:#E62136; /* red */
@@ -193,9 +194,14 @@ a:active{ opacity: .94 }
                           radial-gradient(800px 400px at 120% 120%, rgba(28,177,94,.15), transparent 50%),
                           #0f1218; border:1px solid var(--stroke); border-radius:20px; padding:18px}
     .hero-actions{display:flex; gap:12px; flex-wrap:wrap; margin-top:16px}
-    .btn{border:0; padding:12px 18px; border-radius:12px; font-weight:800; cursor:pointer}
-    .btn-primary{background:linear-gradient(90deg,var(--brand),#ff4d5d); color:#fff}
+    .btn{border:0; padding:12px 18px; border-radius:12px; font-weight:800; cursor:pointer; transition: transform .15s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease}
+    .btn-primary{background:linear-gradient(90deg,var(--brand),#ff4d5d); color:#fff; box-shadow:0 6px 16px rgba(255,77,93,.18)}
     .btn-outline{background:transparent; border:1px solid var(--stroke); color:#fff}
+    .btn:hover{ transform: translateY(-2px) }
+    .btn:active{ transform: translateY(1px) }
+    .btn:focus-visible{ outline:2px solid #635bff; outline-offset:3px }
+    .btn-primary:hover{ box-shadow:0 10px 22px rgba(255,77,93,.25) }
+    .btn-outline:hover{ border-color:#4da3ff; box-shadow:0 8px 20px rgba(77,163,255,.2) }
 
     .statbar{display:flex; gap:14px; margin-top:18px; flex-wrap:wrap}
     .stat{background:#11141a; border:1px solid var(--stroke); padding:12px 14px; border-radius:12px; text-align:center}
@@ -222,7 +228,9 @@ a:active{ opacity: .94 }
 
     /* Course chips */
     .chips{display:flex; gap:10px; flex-wrap:wrap}
-    .btn-chip{border-radius:999px; padding:10px 14px}
+    .btn-chip{border-radius:999px; padding:10px 14px; transition: transform .15s ease, box-shadow .2s ease}
+.btn-chip:hover{ transform: translateY(-2px); box-shadow:0 8px 18px rgba(0,0,0,.18) }
+.btn-chip:active{ transform: translateY(1px) }
 
     /* Modal */
     .modal{position:fixed; inset:0; background:rgba(0,0,0,.55); display:none; place-items:center; padding:16px; z-index:100}
@@ -262,7 +270,72 @@ a:active{ opacity: .94 }
       .video-grid{grid-template-columns:1fr}
     }
 
-    /* Footer */
+    /* Banner Slider */
+    .banner-slider{ position:relative; border:1px solid var(--stroke); border-radius:16px; overflow:hidden; background: radial-gradient(1000px 400px at -5% -10%, rgba(230,33,54,.12), transparent 50%),
+                          radial-gradient(800px 400px at 120% 120%, rgba(28,177,94,.08), transparent 50%),
+                          #0b0d12; box-shadow: var(--shadow) }
+    .banner-slider .track{ display:flex; will-change: transform; transition: transform .7s cubic-bezier(.2,.7,.2,1) }
+    .banner-slider .slide{ min-width:100%; position:relative }
+    .banner-slider img{ width:100%; height: clamp(180px, 28vw, 360px); object-fit: cover; display:block }
+    .banner-slider .ctrl{ position:absolute; top:50%; transform: translateY(-50%); width:38px; height:38px; border-radius:50%; border:1px solid var(--stroke); background: rgba(13,16,22,.6); backdrop-filter:saturate(160%) blur(6px); color:#e5e7eb; display:grid; place-items:center; cursor:pointer; box-shadow:0 6px 16px rgba(0,0,0,.35) }
+    .banner-slider .ctrl:hover{ background: rgba(18,22,30,.85) }
+    .banner-slider .ctrl.prev{ left:10px }
+    .banner-slider .ctrl.next{ right:10px }
+    .banner-slider .dots{ position:absolute; left:0; right:0; bottom:10px; display:flex; justify-content:center; gap:8px; padding:0 10px }
+    .banner-slider .dot{ width:8px; height:8px; border-radius:999px; background: rgba(255,255,255,.45); border:1px solid rgba(255,255,255,.28); padding:0; outline:none }
+    .banner-slider .dot.active{ background:#fff; width:18px; transition: all .25s ease }
+    .banner-slider img.reveal{ animation: bannerFade .8s ease both }
+    @keyframes bannerFade{ from{ opacity:0; transform: scale(1.02) } to{ opacity:1; transform: none } }
+
+    /* Mobile: make banners fully visible and touch-friendly */
+    @media (max-width:700px){
+      .banner-slider .slide{ min-width:100%; position:relative; display:grid; place-items:center }
+      .banner-slider img{ width:auto; max-width:100%; height: clamp(220px, 60vw, 340px); object-fit: contain }
+      .banner-slider .ctrl{ width:40px; height:40px; backdrop-filter: saturate(160%) blur(6px) }
+      .banner-slider .ctrl.prev{ left:6px }
+      .banner-slider .ctrl.next{ right:6px }
+      .banner-slider .dots{ gap:10px; bottom:8px }
+      .banner-slider .dot{ width:10px; height:10px }
+      .banner-slider .dot.active{ width:24px }
+    }
+
+    /* Map Modal */
+.map-card{ width:min(960px, 100%); }
+.map-body{ padding:8px; }
+.map-body iframe{ width:100%; height:60vh; border:0; border-radius:12px; display:block; background:#0b0f15 }
+.map-fallback{ margin-top:8px; font-size:13px; color:#8b94a6 }
+.map-fallback a{ color:#4da3ff }
+
+/* Mobile: High-contrast buttons and chips */
+@media (max-width: 700px){
+  .btn{ padding:14px 18px; font-size:16px; border-radius:14px; min-height:44px; border:2px solid transparent; letter-spacing:.2px }
+  .btn-primary{ background: linear-gradient(90deg,#ff3b4e,#ff6a75); box-shadow:0 8px 20px rgba(255,77,93,.25) }
+  .btn-outline{ background: rgba(255,255,255,.05); border-color:#3b82f6; color:#eaf2ff; box-shadow:0 6px 16px rgba(59,130,246,.18) }
+  .btn:active{ transform: translateY(1px) }
+  .btn:focus-visible{ outline:3px solid #3b82f6; outline-offset:3px }
+
+  .badge{ background: linear-gradient(180deg,#0f141d,#0a0e14); border:2px solid #2e3a4b; color:#eef3ff }
+  .badge.open-courses{ padding:12px 16px; font-size:15px; border-color:#3b82f6; box-shadow:0 4px 14px rgba(59,130,246,.22) }
+  .badge.open-courses:active{ transform:translateY(1px) }
+  .badge.open-courses:focus-visible{ outline:3px solid #3b82f6; outline-offset:2px }
+}
+
+/* Responsive div utility */
+.responsive-div{ width:100%; max-width: min(960px, 100%); margin:0 auto; padding: clamp(12px, 3vw, 24px); border-radius: clamp(12px, 3vw, 16px); box-sizing: border-box }
+.responsive-div img{ max-width:100%; height:auto; display:block }
+.responsive-div .row{ display:grid; grid-template-columns: repeat(12, 1fr); gap: clamp(8px, 2.5vw, 16px) }
+@media (max-width: 700px){
+  .responsive-div .row{ grid-template-columns:1fr }
+  .responsive-div [role="button"], .responsive-div .btn, .responsive-div .badge.open-courses{ min-height:44px; display:inline-flex; align-items:center }
+}
+
+/* Ripple click effect */
+.rippleable{ position:relative; overflow:hidden; }
+.ripple{ position:absolute; border-radius:999px; transform:scale(0); background:currentColor; opacity:.25; pointer-events:none; animation:ripple 600ms ease-out; }
+@keyframes ripple{ to{ transform:scale(12); opacity:0; } }
+@media (prefers-reduced-motion: reduce){ .ripple{ animation:none; opacity:.15 } }
+
+/* Footer */
     footer{margin-top:70px; border-top:1px solid var(--stroke); padding:26px 16px; color:#aeb6c5}
     .foot{max-width:1180px; margin:0 auto; display:grid; grid-template-columns: 1.1fr .9fr; gap:16px}
     .foot small{color:#8f97a6}
@@ -385,16 +458,36 @@ a:active{ opacity: .94 }
       <div class="hero-card">
         <h1>এক প্ল্যাটফর্সে সব প্রস্তুতি — HSC, চাকরি/সরকারি চাকরি, বিশ্ববিদ্যালয় ভর্তি, ক্লাস ৫–১০ ও SSC</h1>
         <p>অফলাইন ক্লাস চালু — ভর্তি অফলাইনে। সাথে অনলাইনে নিয়মিত ক্লাস ও প্রিভিউ ভিডিও। আপনার প্রয়োজন অনুযায়ী কোর্স বাছাই করুন।</p>
-        <div class="badges">
-          <span class="badge open-courses" role="button" tabindex="0" data-target="#details-hsc">HSC XI–XII</span>
-          <span class="badge open-courses" role="button" tabindex="0" data-target="#details-job">চাকরি প্রস্তুতি</span>
-          <span class="badge open-courses" role="button" tabindex="0" data-target="#details-govt">সরকারি চাকরি</span>
-          <span class="badge open-courses" role="button" tabindex="0" data-target="#details-university">বিশ্ববিদ্যালয় ভর্তি</span>
-          <span class="badge open-courses" role="button" tabindex="0" data-target="#details-ssc">ক্লাস ৫–১০ & SSC</span>
+        <div class="badges flex gap-2 flex-wrap">
+          <span class="badge badge-clickable open-courses" role="button" tabindex="0" data-target="#details-hsc">HSC XI–XII</span>
+          <span class="badge badge-clickable open-courses" role="button" tabindex="0" data-target="#details-job">চাকরি প্রস্তুতি</span>
+          <span class="badge badge-clickable open-courses" role="button" tabindex="0" data-target="#details-govt">সরকারি চাকরি</span>
+          <span class="badge badge-clickable open-courses" role="button" tabindex="0" data-target="#details-university">বিশ্ববিদ্যালয় ভর্তি</span>
+          <span class="badge badge-clickable open-courses" role="button" tabindex="0" data-target="#details-ssc">ক্লাস ৫–১০ & SSC</span>
         </div>
-        <div class="hero-actions">
+        <div class="hero-actions flex gap-3 flex-wrap">
           <a class="btn btn-primary open-courses" href="#courses">কোর্স তালিকা দেখুন</a>
           <a class="btn btn-outline" href="tel:01614780582">ভর্তি/জিজ্ঞাসায় কল করুন</a>
+          <button class="btn btn-outline" id="openMap" type="button" aria-haspopup="dialog" aria-controls="mapModal">লাইভ লোকেশন</button>
+        </div>
+        
+        <!-- Map Modal -->
+        <div class="modal" id="mapModal" role="dialog" aria-modal="true" aria-labelledby="mapModalTitle" aria-hidden="true">
+          <div class="modal-card map-card" role="document">
+            <div class="modal-header">
+              <h3 id="mapModalTitle">লাইভ লোকেশন</h3>
+              <button class="modal-close" id="mapClose" aria-label="বন্ধ">বন্ধ</button>
+            </div>
+            <div class="map-body">
+              <iframe title="3 Mentors Live Location"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4733.281923947672!2d89.49504707616752!3d23.163845611039804!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ffa5b85822a35f%3A0x1f8b2e89b46f8e5f!2z4Kao4Kec4Ka-4KaH4KayIOCmrOCmv-CmnOCnjeCmnuCmvuCmqCDgppMg4Kaq4KeN4Kaw4Kav4KeB4KaV4KeN4Kak4Ka_IOCmleCmsuCnh-CmnA!5e1!3m2!1sen!2sbd!4v1758619816211!5m2!1sen!2sbd"
+                loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+              <div class="map-actions" style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap">
+                <a class="btn btn-primary" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=23.163845611039804,89.49504707616752&travelmode=driving">আমার অবস্থান থেকে রুট</a>
+                <p class="map-fallback" style="margin:0">অ্যাপ-এ খুলতে চাইলে এখানে যান: <a href="https://maps.app.goo.gl/9auhWjucjN6BKPij9" target="_blank" rel="noopener">Google Maps</a></p>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="statbar">
           <div class="stat"><b>৫+</b><br/>কোর্স ক্যাটাগরি</div>
@@ -407,6 +500,21 @@ a:active{ opacity: .94 }
       <div class="mock-banner"><img src="/img/benner1.jpg" alt="3 Mentors banner" loading="lazy" decoding="async"></div>
     </div>
   </section>
+
+  <!-- Slider: Promotional banners -->
+  <div class="section">
+    <div class="banner-slider" id="bannerSlider" aria-label="Promotional image slider">
+      <div class="track">
+        <div class="slide"><img src="/img/benner.jpg" alt="3 Mentors banner"></div>
+        <div class="slide"><img src="/img/benner2.jpg" alt="ভর্তি চলছে"></div>
+        <div class="slide"><img src="/img/benner.jpg" alt="3 Mentors banner 2"></div>
+        <div class="slide"><img src="/img/benner2.jpg" alt="অ্যাডমিশন তথ্য"></div>
+      </div>
+      <button class="ctrl prev" type="button" aria-label="Previous slide">‹</button>
+      <button class="ctrl next" type="button" aria-label="Next slide">›</button>
+      <div class="dots" role="tablist" aria-label="Choose slide"></div>
+    </div>
+  </div>
 
   <!-- Courses quick links -->
   <div class="section" id="courses">
@@ -697,6 +805,17 @@ a:active{ opacity: .94 }
     const courseClose = document.getElementById('courseClose');
     const coursePreview = document.getElementById('coursePreview');
 
+    // Map modal
+    const mapBtn = document.getElementById('openMap');
+    const mapModal = document.getElementById('mapModal');
+    const mapClose = document.getElementById('mapClose');
+    if(mapBtn && mapModal){
+      mapBtn.addEventListener('click', ()=>{ mapModal.classList.add('open'); document.body.classList.add('no-scroll'); });
+      if(mapClose){ mapClose.addEventListener('click', ()=>{ mapModal.classList.remove('open'); document.body.classList.remove('no-scroll'); }); }
+      mapModal.addEventListener('click', (e)=>{ if(e.target === mapModal){ mapModal.classList.remove('open'); document.body.classList.remove('no-scroll'); } });
+      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ mapModal.classList.remove('open'); document.body.classList.remove('no-scroll'); } });
+    }
+
     // Smooth scroll with easing and arrival highlight
     function smoothScrollTo(el, duration = 900, offset = 70) {
       if (!el) return;
@@ -749,58 +868,150 @@ a:active{ opacity: .94 }
       }
     }
 
-    document.querySelectorAll('.open-courses').forEach(el=>{
-      el.addEventListener('click', (e)=>{
-        const isAnchor = el.tagName.toLowerCase() === 'a' && (el.getAttribute('href') || '').startsWith('#');
-        if (isAnchor) {
-          // Let the global smooth-scroll handler for anchors run
-          return;
-        }
-        const targetId = el.getAttribute('data-target');
-        if (targetId) {
-          const targetEl = document.querySelector(targetId);
-          if (targetEl) {
-            e.preventDefault();
-            smoothScrollTo(targetEl, 900, 70);
-            setMenu(false);
+    (function(){
+      const els = document.querySelectorAll('.open-courses');
+      for (let i=0; i<els.length; i++){
+        const el = els[i];
+        el.addEventListener('click', (e)=>{
+          const isAnchor = el.tagName.toLowerCase() === 'a' && (el.getAttribute('href') || '').startsWith('#');
+          if (isAnchor) {
+            // Let the global smooth-scroll handler for anchors run
+            return;
           }
-        }
-      })
-    })
+          const targetId = el.getAttribute('data-target');
+          if (targetId) {
+            const targetEl = document.querySelector(targetId);
+            if (targetEl) {
+              e.preventDefault();
+              smoothScrollTo(targetEl, 900, 70);
+              setMenu(false);
+            }
+          }
+        })
+      }
+    })();
     // Keyboard support for non-anchor buttons (Enter/Space)
-    document.querySelectorAll('.open-courses[role="button"]').forEach(el=>{
-      el.addEventListener('keydown',(e)=>{
-        if(e.key === 'Enter' || e.key === ' '){
-          e.preventDefault();
-          el.click();
-        }
-      })
-    })
+    (function(){
+      const btns = document.querySelectorAll('.open-courses[role="button"]');
+      for (let i=0; i<btns.length; i++){
+        const el = btns[i];
+        el.addEventListener('keydown',(e)=>{
+          if(e.key === 'Enter' || e.key === ' '){
+            e.preventDefault();
+            el.click();
+          }
+        })
+      }
+    })();
+
+    // Click ripple effect for div-like buttons and chips
+    (function(){
+      const candidates = document.querySelectorAll('.badge.open-courses[role="button"], .btn, .btn-chip');
+      for(let i=0;i<candidates.length;i++){
+        const el = candidates[i];
+        el.classList.add('rippleable');
+        el.addEventListener('click', function(e){
+          const rect = el.getBoundingClientRect();
+          const ripple = document.createElement('span');
+          ripple.className = 'ripple';
+          const size = Math.max(rect.width, rect.height);
+          const x = e.clientX - rect.left - size/2;
+          const y = e.clientY - rect.top - size/2;
+          ripple.style.width = ripple.style.height = size + 'px';
+          ripple.style.left = x + 'px';
+          ripple.style.top = y + 'px';
+          el.appendChild(ripple);
+          setTimeout(()=> ripple.remove(), 650);
+        }, {passive:true});
+      }
+    })();
 
     courseClose?.addEventListener('click', ()=> courseModal.classList.remove('open'));
     courseModal?.addEventListener('click', (e)=>{ if(e.target === courseModal) courseModal.classList.remove('open') });
 
     // In-modal chip clicks: update preview but do not close modal immediately; provide a CTA to go to details
-    document.getElementById('courseChips')?.querySelectorAll('a').forEach(a=>{
-      a.addEventListener('click', (e)=>{
-        e.preventDefault();
-        const target = a.getAttribute('data-target') || a.getAttribute('href');
-        openCoursesModal(target);
-      })
-    })
+    (function(){
+      const chips = document.getElementById('courseChips');
+      if(!chips) return;
+      const links = chips.querySelectorAll('a');
+      for (let i=0; i<links.length; i++){
+        const a = links[i];
+        a.addEventListener('click', (e)=>{
+          e.preventDefault();
+          const target = a.getAttribute('data-target') || a.getAttribute('href');
+          openCoursesModal(target);
+        })
+      }
+    })();
 
     // Smooth scroll for internal links (kept as is below)
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click', e=>{
-        const id = a.getAttribute('href');
-        if(!id || id === 'tel:01614780582') return;
-        const el = document.querySelector(id);
-        if(el){
-          e.preventDefault();
-          smoothScrollTo(el, 900, 70);
-          setMenu(false);
-        }
-      })    })
+    (function(){
+      const anchors = document.querySelectorAll('a[href^="#"]');
+      for (let i=0; i<anchors.length; i++){
+        const a = anchors[i];
+        a.addEventListener('click', e=>{
+          const id = a.getAttribute('href');
+          if(!id || id === 'tel:01614780582') return;
+          const el = document.querySelector(id);
+          if(el){
+            e.preventDefault();
+            smoothScrollTo(el, 900, 70);
+            setMenu(false);
+          }
+        })
+      }
+    })();
+
+    // Banner slider (auto-play, swipe, dots, accessible)
+    (function(){
+      const slider = document.getElementById('bannerSlider');
+      if(!slider) return;
+      const track = slider.querySelector('.track');
+      const slides = Array.from(slider.querySelectorAll('.slide'));
+      const prevBtn = slider.querySelector('.prev');
+      const nextBtn = slider.querySelector('.next');
+      const dotsWrap = slider.querySelector('.dots');
+      let index = 0;
+
+      // Build dots
+      slides.forEach((_, i)=>{
+        const b = document.createElement('button');
+        b.className = 'dot';
+        b.type = 'button';
+        b.setAttribute('aria-label', `Slide ${i+1}`);
+        b.addEventListener('click', ()=>{ go(i); restart(); });
+        dotsWrap.appendChild(b);
+      });
+
+      function update(){
+        track.style.transform = `translateX(-${index*100}%)`;
+        const dots = dotsWrap.querySelectorAll('.dot');
+        dots.forEach((d,i)=> d.classList.toggle('active', i===index));
+        slides.forEach((s,i)=>{
+          const img = s.querySelector('img');
+          if(!img) return;
+          img.classList.remove('reveal');
+          if(i===index){ void img.offsetWidth; img.classList.add('reveal'); }
+        });
+      }
+      function go(i){ index = (i + slides.length) % slides.length; track.style.transition = 'transform 700ms cubic-bezier(.2,.7,.2,1)'; update(); }
+      function next(){ go(index+1) }
+      function prev(){ go(index-1) }
+
+      nextBtn?.addEventListener('click', ()=>{ next(); restart(); });
+      prevBtn?.addEventListener('click', ()=>{ prev(); restart(); });
+
+      // Auto-play
+      let timer; function start(){ stop(); timer = setInterval(next, 4200) } function stop(){ if(timer) clearInterval(timer) } function restart(){ start() }
+      slider.addEventListener('mouseenter', stop); slider.addEventListener('mouseleave', start);
+      // Touch swipe
+      let startX=0, dx=0; slider.addEventListener('touchstart', (e)=>{ startX=e.touches[0].clientX; dx=0; stop(); }, {passive:true});
+      slider.addEventListener('touchmove', (e)=>{ dx=e.touches[0].clientX - startX }, {passive:true});
+      slider.addEventListener('touchend', ()=>{ if(Math.abs(dx)>40){ dx<0 ? next() : prev() } start() }, {passive:true});
+
+      // Init
+      track.style.transition = 'none'; update(); start();
+    })();
   </script>
 </body>
 </html>
