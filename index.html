@@ -2,14 +2,14 @@
 <html lang="bn">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, shrink-to-fit=no" />
   <title>3 Mentors — HSC ব্যাচ (XI & XII) | অফলাইন ভর্তি অফলাইনে, অনলাইনে প্রিভিউ ক্লাস</title>
   <meta name="description" content="3 Mentors — শুধুমাত্র HSC ব্যাচ: XI ও XII। অফলাইন ক্লাস চলছে; অফলাইন ভর্তি হবে সরাসরি অফলাইনে (অনলাইনে ভর্তি প্রক্রিয়া নেই)। অনলাইনে নিয়মিত ক্লাস থাকবে এবং প্রিভিউ ক্লাস হিসেবে দুটি ইউটিউব রেকর্ডেড ভিডিও দেখুন।" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/svg+xml" href='data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"%3E%3Crect x="2" y="2" width="60" height="60" rx="14" fill="%2312161f"/%3E%3Cpath d="M16 42c6-2 10-6 10-12 0-4-2-6-6-6-3 0-5 1-7 3" stroke="%23E62136" stroke-width="6" stroke-linecap="round" fill="none"/%3E%3Cpath d="M30 22h18m-18 10h14m-14 10h18" stroke="%231CB15E" stroke-width="6" stroke-linecap="round" fill="none"/%3E%3C/svg%3E' />
-  <link rel="stylesheet" href="/tailwind-style.css" />
+  <link rel="stylesheet" href="./tailwind-style.css" />
   <style>
     :root{
       --brand:#E62136; /* red */
@@ -26,7 +26,7 @@
     }
 
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0}
+    html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden;-webkit-text-size-adjust:100%;text-size-adjust:100%}
     body{
       font-family: 'Hind Siliguri', system-ui, -apple-system, Segoe UI, Roboto, 'Inter', Arial, sans-serif;
       background: linear-gradient(180deg,var(--bg),#0b0c0f 30%, #0a0b0e 60%, #08090c 100%);
@@ -178,9 +178,9 @@ a:active{ opacity: .94 }
     }
 
     /* Hero */
-    .hero{max-width:1180px; margin:30px auto 0; padding:24px 16px; display:grid; grid-template-columns: 1.1fr .9fr; gap:26px; align-items:center}
-    .hero h1{font-size:48px; line-height:1.08; margin:0 0 14px; font-weight:800}
-    .hero p{font-size:18px; color:var(--muted); margin:0 0 18px}
+    .hero{max-width:1180px; margin:30px auto 0; padding:24px 16px; display:grid; grid-template-columns: 1fr; gap:26px; align-items:center}
+    .hero h1{font-size:clamp(26px, 6vw, 48px); line-height:1.12; margin:0 0 14px; font-weight:800}
+    .hero p{font-size:clamp(14px, 3.6vw, 18px); color:var(--muted); margin:0 0 18px}
     .badges{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
     .badge{background:#10131a; border:1px solid var(--stroke); padding:8px 12px; border-radius:999px; color:#cdd3de; font-weight:600; transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease}
     .badge.open-courses{ cursor:pointer; display:inline-flex; align-items:center; gap:6px; box-shadow:0 2px 8px rgba(99,91,255,.12); background:linear-gradient(180deg,#10131a,#0d1118); -webkit-tap-highlight-color:rgba(99,91,255,.2) }
@@ -214,7 +214,7 @@ a:active{ opacity: .94 }
     .mock-banner img{ width:94%; height:auto; max-width:100%; max-height:100%; object-fit:contain; transform:scale(1.06); transform-origin:center; display:block }
 
     /* Section */
-    .section{max-width:1180px; margin:60px auto 0; padding:0 16px}
+    .section{max-width:1180px; width:100%; margin:60px auto 0; padding:0 16px; overflow-x:hidden}
     .section h2{font-size:34px; margin:0 0 18px}
     .sub{color:var(--muted); margin-top:-8px}
     .grid{display:grid; grid-template-columns: repeat(2, 1fr); gap:16px}
@@ -244,6 +244,9 @@ a:active{ opacity: .94 }
     .target-highlight{ animation: glowIn 1200ms ease-out 1; scroll-margin-top: 80px; border-radius: 12px }
 
  
+    @media (min-width: 900px){
+      .hero{grid-template-columns: 1.1fr .9fr}
+    }
     @media (max-width: 1020px){
       .hero{grid-template-columns: 1fr;}
       .grid{grid-template-columns: 1fr}
@@ -276,7 +279,7 @@ a:active{ opacity: .94 }
                           #0b0d12; box-shadow: var(--shadow) }
     .banner-slider .track{ display:flex; will-change: transform; transition: transform .7s cubic-bezier(.2,.7,.2,1) }
     .banner-slider .slide{ min-width:100%; position:relative }
-    .banner-slider img{ width:100%; height: clamp(180px, 28vw, 360px); object-fit: cover; display:block }
+    .banner-slider img{ width:100%; max-width:100vw; height: clamp(180px, 45vw, 360px); object-fit: cover; display:block }
     .banner-slider .ctrl{ position:absolute; top:50%; transform: translateY(-50%); width:38px; height:38px; border-radius:50%; border:1px solid var(--stroke); background: rgba(13,16,22,.6); backdrop-filter:saturate(160%) blur(6px); color:#e5e7eb; display:grid; place-items:center; cursor:pointer; box-shadow:0 6px 16px rgba(0,0,0,.35) }
     .banner-slider .ctrl:hover{ background: rgba(18,22,30,.85) }
     .banner-slider .ctrl.prev{ left:10px }
