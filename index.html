@@ -1015,6 +1015,23 @@ a:active{ opacity: .94 }
       // Init
       track.style.transition = 'none'; update(); start();
     })();
+
+    // Back-button behavior on mobile: first back scrolls to top
+    (function(){
+      const isMobile = window.matchMedia('(max-width: 700px)').matches;
+      if(!isMobile) return;
+      try{ history.scrollRestoration = 'manual'; }catch(_){}
+      try{ history.replaceState({scrollTopTrap:true}, '', location.href); }catch(_){}
+      window.addEventListener('popstate', function(e){
+        if(e.state && e.state.scrollTopTrap){
+          try{ document.body.classList.remove('no-scroll'); }catch(_){}
+          try{ setMenu(false); }catch(_){}
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          // After bringing to top, remove the marker so next back navigates away normally
+          try{ history.back = history.back; }catch(_){}
+        }
+      });
+    })();
   </script>
 </body>
 </html>
