@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>বই রিভিউ</title>
+  <meta name="description" content="৩ মেন্টর্স বই রিভিউ, ছবি গ্যালারি, গড় রেটিং, রেটিং বণ্টন, এবং পিডিএফ প্রিভিউ" />
+  <link rel="icon" href="/img/logo.svg" />
+  <link rel="canonical" href="/reviews.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="বই রিভিউ — ৩ মেন্টর্স" />
+  <meta property="og:description" content="ছবি গ্যালারি সহ বিস্তারিত রিভিউ ও পিডিএফ প্রিভিউ" />
+  <meta property="og:image" content="/img/book1.jpg" />
+  <style>
+    :root{ --bg:#0c111b; --card:#0f1625; --text:#e6ebf3; --muted:#aeb6c5; --stroke:#1f2a3a; --brand:#4da3ff; --ok:#22c55e; --warn:#f59e0b; --err:#ef4444 }
+    *{ box-sizing:border-box }
+    body{ margin:0; font-family:ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial; background:var(--bg); color:var(--text); }
+    a{ color:var(--brand); text-decoration:none }
+
+    header{ display:flex; align-items:center; gap:12px; padding:14px 18px; border-bottom:1px solid var(--stroke); position:sticky; top:0; backdrop-filter:saturate(120%) blur(4px); background:color-mix(in oklab, var(--bg), transparent 20%); z-index:10 }
+    header img{ width:34px; height:34px }
+
+    .container{ max-width:1100px; margin:20px auto; padding:0 16px }
+    .crumb{ display:flex; align-items:center; gap:10px; margin:6px 0 14px }
+    .crumb a{ color:#cfe5ff }
+
+    .card{ background:var(--card); border:1px solid var(--stroke); border-radius:16px; overflow:hidden }
+    .grid{ display:grid; grid-template-columns: 360px 1fr; gap:18px }
+
+    /* Gallery */
+    .gallery{ position:relative; border-right:1px solid var(--stroke) }
+    .track{ display:flex; transition: transform .6s cubic-bezier(.2,.7,.2,1) }
+    .gallery img{ width:100%; height:320px; object-fit:cover; display:block }
+    .thumbs{ display:flex; gap:8px; padding:8px; justify-content:center; border-top:1px solid var(--stroke) }
+    .thumb{ width:60px; height:60px; border-radius:8px; border:1px solid #2a3b52; object-fit:cover; opacity:.85; cursor:pointer }
+    .thumb.active{ outline:2px solid #fff; opacity:1 }
+    .gbtn{ position:absolute; top:50%; transform:translateY(-50%); width:36px; height:36px; border-radius:50%; border:1px solid var(--stroke); background:rgba(13,16,22,.6); color:#e5e7eb; cursor:pointer }
+    .gbtn.prev{ left:6px } .gbtn.next{ right:6px }
+
+    /* Content */
+    .content{ padding:14px 14px 6px }
+    .title{ margin:6px 0 2px }
+    .muted{ color:var(--muted) }
+
+    .toolbar{ display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin:10px 0 6px }
+    .select, .btn{ padding:10px 14px; border-radius:10px; border:1px solid var(--stroke); background:#111829; color:#e6ebf3 }
+    .btn.primary{ background:linear-gradient(135deg,#3b82f6,#06b6d4); border:0; color:white }
+
+    /* Summary */
+    .summary{ display:grid; grid-template-columns: 160px 1fr; gap:14px; align-items:center; margin-top:10px; padding:12px; border:1px solid var(--stroke); border-radius:12px; background:#0e1523 }
+    .big{ font-size:36px; font-weight:700 }
+    .stars{ color:#ffd36a; letter-spacing:2px; font-size:16px }
+    .dist{ display:grid; gap:6px }
+    .row{ display:grid; grid-template-columns: 20px 1fr 40px; gap:8px; align-items:center }
+    .bar{ height:10px; background:#0b1220; border-radius:999px; overflow:hidden; border:1px solid #1c2940 }
+    .fill{ height:100%; background:linear-gradient(90deg,#ffaa00,#ffd36a) }
+
+    .filters{ display:flex; gap:8px; flex-wrap:wrap; margin-top:8px }
+    .chip{ border:1px solid var(--stroke); background:#0f1729; color:#d6def0; border-radius:999px; padding:6px 10px; cursor:pointer }
+    .chip.active{ outline:2px solid #3b82f6 }
+
+    .reviews{ margin-top:14px; display:grid; gap:12px }
+    .review{ padding:12px; border:1px solid var(--stroke); border-radius:12px; background: #0e1523 }
+
+    .pdf{ margin-top:18px }
+    iframe{ width:100%; min-height:70vh; border:0; border-radius:12px; background:#0b0f15 }
+
+    .sr{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0 }
+
+    @media (max-width: 1024px){ .grid{ grid-template-columns: 1fr } .gallery img{ height:280px } }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/index.html#books" aria-label="হোমে ফিরে যান">⬅ হোম</a>
+    <img src="/img/logo.svg" alt="৩ মেন্টর্স লোগো" width="34" height="34" decoding="async">
+    <strong>বই রিভিউ</strong>
+  </header>
+
+  <main class="container">
+    <nav class="crumb" aria-label="Breadcrumb">
+      <a href="/index.html#books">হোম</a>
+      <span aria-hidden="true">›</span>
+      <span id="crumbTitle">বই</span>
+    </nav>
+
+    <div class="card">
+      
+
+        <div class="content">
+          <h1 class="title" id="btitle">বই শিরোনাম</h1>
+          <p class="muted" id="bdesc">বই সম্পর্কে বর্ণনা।</p>
+
+          <div class="toolbar">
+            <label>
+              <span class="sr">বই নির্বাচন করুন</span>
+              <select class="select" id="bookSwitch">
+                <option value="hsc-1st-year">HSC 1st Year</option>
+                <option value="hsc-grammar">HSC Grammar & Written</option>
+                <option value="ict-master">ICT Master Book</option>
+              </select>
+            </label>
+            <a class="btn" href="/index.html#books">বই তালিকায় ফিরে যান</a>
+            <a class="btn primary" id="pdfBtn" target="_blank" rel="noopener">পিডিএফ নতুন ট্যাবে</a>
+            <button class="btn" id="shareBtn" type="button">লিংক কপি</button>
+            <span id="shareNote" class="muted" role="status" aria-live="polite"></span>
+          </div>
+
+          <section class="summary" aria-label="রেটিং সারাংশ">
+            <div>
+              <div class="big" id="avg">0.0</div>
+              <div class="stars" id="avgStars" aria-hidden="true">★★★★★</div>
+              <div class="muted" id="count">0টি রিভিউ</div>
+            </div>
+            <div class="dist" id="dist">
+              <!-- rows inserted by JS -->
+            </div>
+          </section>
+
+          <div class="filters" id="filters" aria-label="রিভিউ ফিল্টার"></div>
+
+          <section class="reviews" aria-label="রিভিউ তালিকা" id="reviews"></section>
+
+          <section class="pdf">
+            <h2>পিডিএফ প্রিভিউ</h2>
+            <iframe id="pdf" title="PDF Viewer"></iframe>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Book data
+    const BOOKS = {
+      'hsc-1st-year': {
+        title: 'HSC 1st Year — 3 Mentors সিরিজ',
+        desc: 'বোর্ড পরীক্ষামুখী সিলেবাস কভারেজ, শর্ট ট্রিকস, প্র্যাকটিস সেট ও সমাধানসহ।',
+        pdf: 'https://arxiv.org/pdf/2107.08923.pdf',
+        reviews: [
+          { name: 'সামিউল', rating: 5, text: 'পরীক্ষার জন্য দারুণ গাইডলাইন। টপিকভিত্তিক প্র্যাকটিস কাজে লেগেছে।' },
+          { name: 'নুসরাত', rating: 4, text: 'ল্যাঙ্গুয়েজ সহজ, কনসেপ্ট ক্লিয়ার। আরও MCQ হলে ভালো হত।' },
+          { name: 'রিফাত', rating: 5, text: 'গ্রাফ/চার্ট অংশ অসাধারণ।' }
+        ]
+      },
+      'hsc-grammar': {
+        title: 'HSC Grammar & Written Side',
+        desc: '১০-ইন-ওয়ান: গ্রামার, ইমেইল/লেটার, প্যারাগ্রাফ, রিপোর্ট রাইটিং ইত্যাদি।',
+        pdf: 'https://arxiv.org/pdf/2203.15556.pdf',
+        reviews: [
+          { name: 'মিথিলা', rating: 5, text: 'রাইটিং সেকশনের উদাহরণগুলো খুব হেল্পফুল।' },
+          { name: 'আকাশ', rating: 4, text: 'গ্রামারের রুলস সংক্ষিপ্তভাবে সুন্দরভাবে দেয়া।' }
+        ]
+      },
+      'ict-master': {
+        title: 'ICT Master Book — CQ/MCQ',
+        desc: 'কনসেপ্ট + বোর্ড প্রশ্নভিত্তিক প্র্যাকটিস, CQ/MCQ কভারেজ।',
+        pdf: 'https://arxiv.org/pdf/2303.08774.pdf',
+        reviews: [
+          { name: 'তন্ময়', rating: 5, text: 'MCQ ব্যাংক শক্তিশালী। টাইমড প্র্যাকটিসে কাজে লেগেছে।' },
+          { name: 'অর্ণব', rating: 5, text: 'CQ সমাধানগুলো স্টেপ-বাই-স্টেপ।' }
+        ]
+      }
+    };
+
+    // Helpers
+    const $ = (sel, el=document) => el.querySelector(sel);
+    const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
+    const params = new URLSearchParams(location.search);
+    const key = params.get('book') || 'hsc-1st-year';
+    const book = BOOKS[key] || BOOKS['hsc-1st-year'];
+
+    // Populate basics
+    $('#bookSwitch').value = key;
+    $('#btitle').textContent = book.title;
+    $('#crumbTitle').textContent = book.title;
+    $('#bdesc').textContent = book.desc;
+    $('#pdf').src = book.pdf;
+    $('#pdfBtn').href = book.pdf;
+    document.title = `${book.title} — বই রিভিউ`;
+
+    // Rating summary
+    function computeSummary(list){
+      const dist = {1:0,2:0,3:0,4:0,5:0};
+      let sum = 0; const n = list.length || 0;
+      list.forEach(r=>{ dist[r.rating] = (dist[r.rating]||0)+1; sum += r.rating; });
+      const avg = n? (sum/n) : 0;
+      return {dist, avg, n};
+    }
+    function starStr(n){ return '★★★★★☆☆☆☆☆'.slice(5 - Math.round(n), 10 - Math.round(n)); }
+    function renderSummary(list){
+      const s = computeSummary(list);
+      $('#avg').textContent = s.avg.toFixed(1);
+      $('#avgStars').textContent = '★'.repeat(Math.round(s.avg)) + '☆'.repeat(5-Math.round(s.avg));
+      $('#count').textContent = `${s.n}টি রিভিউ`;
+      const distEl = $('#dist'); distEl.innerHTML = '';
+      for(let r=5; r>=1; r--){
+        const pct = s.n? Math.round((s.dist[r]/s.n)*100) : 0;
+        const row = document.createElement('div'); row.className = 'row';
+        row.innerHTML = `<span>${r}</span><div class="bar"><div class="fill" style="width:${pct}%"></div></div><span>${pct}%</span>`;
+        distEl.appendChild(row);
+      }
+      renderFilters(s);
+      renderJsonLd(book, s);
+    }
+
+    // Filters
+    function renderFilters(s){
+      const root = $('#filters'); root.innerHTML = '';
+      const all = document.createElement('button'); all.className = 'chip active'; all.textContent = 'সব'; all.dataset.rating = '0'; root.appendChild(all);
+      for(let r=5; r>=1; r--){
+        const b = document.createElement('button'); b.className = 'chip'; b.textContent = `${r}★`; b.dataset.rating = String(r); root.appendChild(b);
+      }
+      root.addEventListener('click', (e)=>{
+        const btn = e.target.closest('.chip'); if(!btn) return;
+        $$('.chip', root).forEach(c=>c.classList.toggle('active', c===btn));
+        const min = +btn.dataset.rating; renderReviews(min);
+      }, { once: true });
+    }
+
+    // Render reviews
+    function renderReviews(minRating=0){
+      const box = $('#reviews'); box.innerHTML = '';
+      const list = book.reviews.filter(r => r.rating >= minRating);
+      if(!list.length){ box.innerHTML = '<p class="muted">এই ফিল্টারে কোনো রিভিউ নেই।</p>'; return; }
+      list.forEach(r => {
+        const el = document.createElement('article'); el.className = 'review';
+        const stars = '★'.repeat(r.rating) + '☆'.repeat(5-r.rating);
+        el.innerHTML = `<strong>${r.name}</strong> · <span class="stars" aria-label="${r.rating} out of 5">${stars}</span><p class="muted">${r.text}</p>`;
+        box.appendChild(el);
+      });
+    }
+
+    // Initial render
+    renderSummary(book.reviews);
+    renderReviews();
+
+    // JSON-LD structured data
+    function renderJsonLd(book, sum){
+      const data = {
+        '@context': 'https://schema.org', '@type': 'Book',
+        name: book.title, description: book.desc,
+        aggregateRating: {
+          '@type': 'AggregateRating', ratingValue: Number(sum.avg.toFixed(1)), reviewCount: sum.n
+        },
+        review: book.reviews.map(r=>({ '@type': 'Review', reviewBody: r.text, reviewRating: { '@type':'Rating', ratingValue: r.rating }, author: { '@type':'Person', name: r.name } }))
+      };
+      let tag = document.getElementById('jsonld');
+      if(!tag){ tag = document.createElement('script'); tag.type = 'application/ld+json'; tag.id = 'jsonld'; document.head.appendChild(tag); }
+      tag.textContent = JSON.stringify(data);
+    }
+
+    // Book switcher
+    $('#bookSwitch').addEventListener('change', e=>{
+      const v = e.target.value; location.assign(`${location.pathname}?book=${encodeURIComponent(v)}`);
+    });
+
+    // Share button
+    $('#shareBtn').addEventListener('click', async ()=>{
+      const url = location.href; const note = $('#shareNote');
+      try{
+        if(navigator.clipboard && navigator.clipboard.writeText){ await navigator.clipboard.writeText(url); note.textContent = 'লিংক কপি হয়েছে!'; }
+        else { throw new Error('no-clipboard'); }
+      }catch{ prompt('লিংক কপি করুন:', url); note.textContent = 'লিংক দেখানো হয়েছে।'; }
+      setTimeout(()=> note.textContent = '', 2500);
+    });
+
+    // Simple gallery controls + keyboard
+    const track = $('#trk');
+    const thumbs = $$('#thumbs .thumb');
+    let i=0; function update(){ track.style.transform = `translateX(-${i*100}%)`; thumbs.forEach((t,idx)=>t.classList.toggle('active', idx===i)); }
+    $('#prev').addEventListener('click', ()=>{ i=(i+2)%3; update(); });
+    $('#next').addEventListener('click', ()=>{ i=(i+1)%3; update(); });
+    thumbs.forEach((t,idx)=> t.addEventListener('click', ()=>{ i=idx; update(); }));
+    document.addEventListener('keydown', e=>{ if(e.key==='ArrowLeft'){ i=(i+2)%3; update(); } else if(e.key==='ArrowRight'){ i=(i+1)%3; update(); } });
+    update();
+  </script>
+</body>
+</html>
